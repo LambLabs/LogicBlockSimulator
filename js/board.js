@@ -32,19 +32,93 @@ class Board
     let gate = null;
     switch (eGateType) {
       case GateType.AND:
-        gate = new AndGate(newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new AndGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       case GateType.OR:
-        gate = new OrGate(newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new OrGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       case GateType.INPUT:
-        gate = new InputGate(newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new InputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       case GateType.OUTPUT:
-        gate = new OutputGate(newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
     }
     this.m_aLogicGates[newId] = gate;
+  }
+
+  getNeighbourLogicState(iId, iOrientation) {
+    let iY = Math.floor(iId / this.m_iWidthInGates);
+    let iX = iId % this.m_iWidthInGates;
+    let iOrientationFinal = iOrientation % 12;
+    switch (iOrientationFinal) {
+      case 0:
+        iY = iY - 1;
+        break;
+      case 3:
+        iX = iX + 1;
+        break;
+      case 6:
+        iY = iY + 1;
+        break;
+      case 9:
+        iX = iX - 1;
+        break;
+    }
+    if (iY >= 0 && iY < this.m_iHeightInGates && iX >= 0 && iX < this.m_iWidthInGates) {
+      iId = iX + iY * this.m_iWidthInGates;
+      let gate = this.m_aLogicGates[iId];
+      if (gate) {
+        return gate.getLogicState(iOrientation + 6);
+      }
+    }
+
+    return LogicState.ZZZ;
+  }
+
+  scheduleUpdateOutputLogicState(iId) {
+    let gate = this.m_aLogicGates[iId];
+    window.setTimeout(gate.updateOutputLogicState.bind(gate),1000);
+  }
+
+  scheduleUpdateInputLogicState(iId, iOrientation) {
+    let iY = Math.floor(iId / this.m_iWidthInGates);
+    let iX = iId % this.m_iWidthInGates;
+    switch (iOrientation) {
+      case 0:
+        iY = iY - 1;
+        break;
+      case 3:
+        iX = iX + 1;
+        break;
+      case 6:
+        iY = iY + 1;
+        break;
+      case 9:
+        iX = iX - 1;
+        break;
+    }
+    if (iY >= 0 && iY < this.m_iHeightInGates && iX >= 0 && iX < this.m_iWidthInGates) {
+      iId = iX + iY * this.m_iWidthInGates;
+      let gate = this.m_aLogicGates[iId];
+      if (gate) {
+        window.setTimeout(gate.updateInputLogicState.bind(gate),1000);
+      }
+    }
+  }
+
+  onclick(event) {
+    console.log('click ' + event.clientX + ' ' + event.clientY);
+    let mouseX = event.clientX;
+    let mouseY = event.clientY;
+    let iY = Math.floor(mouseY / this.m_iGateHeight);
+    let iX = Math.floor(mouseX / this.m_iGateWidth);
+    let iId = iX + iY * this.m_iWidthInGates;
+    let gate = this.m_aLogicGates[iId];
+    console.log('X: ' + iX + ' Y: ' + iY);
+    if (gate instanceof InputGate) {
+      gate.updateOutputLogicState();
+    }
   }
 
   draw(ctx) {

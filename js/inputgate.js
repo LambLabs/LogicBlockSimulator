@@ -1,9 +1,9 @@
 "use strict";
 
 class InputGate extends Gate {
-  constructor(iId, iX, iY, iOrientation) {
-    super(iId, iX, iY, iOrientation, 0);
-    this.m_outputLogicState = LogicState.HIGH;
+  constructor(boardParent, iId, iX, iY, iOrientation) {
+    super(boardParent, iId, iX, iY, iOrientation, 0);
+    //this.m_outputLogicState = LogicState.HIGH;
   }
 
   draw(ctx) {
@@ -57,10 +57,10 @@ class InputGate extends Gate {
   }
 
   updateOutputLogicState() {
-    if(this.m_outputLogicState == LogicState.LOW || this.m_outputLogicState == LogicState.ZZZ)
+    if (this.m_outputLogicState == LogicState.LOW || this.m_outputLogicState == LogicState.ZZZ)
       this.m_outputLogicState = LogicState.HIGH;
     else
-      this.m_outputLogicState = LogicState.LOG;
+      this.m_outputLogicState = LogicState.LOW;
     super.updateOutputLogicState();
   }
 }

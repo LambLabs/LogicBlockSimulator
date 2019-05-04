@@ -1,8 +1,8 @@
 "use strict";
 
 class AndGate extends Gate {
-  constructor(iId, iX, iY, iOrientation) {
-    super(iId, iX, iY, iOrientation, 2);
+  constructor(boardParent, iId, iX, iY, iOrientation) {
+    super(boardParent, iId, iX, iY, iOrientation, 2);
   }
 
   draw(ctx) {
@@ -35,9 +35,9 @@ class AndGate extends Gate {
         ctx.lineTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iHeight - iLineWidth - iLineWidth * Math.SQRT2 / 2);
       }
       ctx.closePath();
-      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[(i == 0 || i == 2) ? this.m_inputLogicState[i] : this.m_outputLogicState];
+      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[(i == 0) ? this.m_inputLogicState[0] : (i == 2) ? this.m_inputLogicState[1] : this.m_outputLogicState];
       ctx.stroke();
-      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[(i == 0 || i == 2) ? this.m_inputLogicState[i] : this.m_outputLogicState];
+      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[(i == 0) ? this.m_inputLogicState[0] : (i == 2) ? this.m_inputLogicState[1] : this.m_outputLogicState];
       ctx.fill();
       ctx.rotate((Math.PI / 180) * 90);
     }
@@ -56,8 +56,23 @@ class AndGate extends Gate {
     ctx.restore();
   }
 
+  updateInputLogicState() {
+    this.m_inputLogicState[0] = this.m_boardParent.getNeighbourLogicState(this.m_iId, this.m_iOrientation + 9);
+    this.m_inputLogicState[1] = this.m_boardParent.getNeighbourLogicState(this.m_iId, this.m_iOrientation + 3);
+    super.updateInputLogicState();
+  }
+
   updateOutputLogicState() {
-    this.m_outputLogicState = this.m_inputLogicState[0] && this.m_inputLogicState[1];
-    super.updateOutputLogicState();
+    let oldOutputLogicState = this.m_outputLogicState;
+    if (this.m_inputLogicState[0] == LogicState.ZZZ && this.m_inputLogicState[1] == LogicState.ZZZ) {
+      this.m_outputLogicState = LogicState.ZZZ;
+    } else if (this.m_inputLogicState[0] == LogicState.HIGH && this.m_inputLogicState[1] == LogicState.HIGH) {
+      this.m_outputLogicState = LogicState.HIGH;
+    } else {
+      this.m_outputLogicState = LogicState.LOW;
+    }
+    if (oldOutputLogicState != this.m_outputLogicState) {
+      super.updateOutputLogicState();
+    }
   }
 }

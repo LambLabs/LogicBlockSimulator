@@ -1,8 +1,8 @@
 "use strict";
 
 class OutputGate extends Gate {
-  constructor(iId, iX, iY, iOrientation) {
-    super(iId, iX, iY, iOrientation, 1);
+  constructor(boardParent, iId, iX, iY, iOrientation) {
+    super(boardParent, iId, iX, iY, iOrientation, 1);
     this.m_outputLogicState = LogicState.ZZZ;
   }
 
@@ -50,5 +50,14 @@ class OutputGate extends Gate {
     ctx.font = '8px serif';
     ctx.fillText('Output', 0, -iHeight / 2 + (iSecWidth - iLineWidth) / 2 + iLineWidth);
     ctx.restore();
+  }
+
+  updateInputLogicState() {
+    this.m_inputLogicState[0] = this.m_boardParent.getNeighbourLogicState(this.m_iId, this.m_iOrientation + 6);
+    super.updateInputLogicState();
+  }
+
+  updateOutputLogicState() {
+    this.m_outputLogicState = this.m_inputLogicState[0];
   }
 }

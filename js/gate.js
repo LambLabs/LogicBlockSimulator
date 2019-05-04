@@ -11,7 +11,8 @@ class Gate
     return ['white', 'red', 'gray'];
   }
 
-  constructor(iId, iX, iY, iOrientation, iInputCount) {
+  constructor(boardParent, iId, iX, iY, iOrientation, iInputCount) {
+    this.m_boardParent = boardParent;
     this.m_iId = iId;
     this.m_iX = iX;
     this.m_iY = iY;
@@ -31,14 +32,17 @@ class Gate
   }
 
   updateInputLogicState() {
-    //ScheduleUpdateOutputLogicState(this.m_iId);
+    console.log('updateInputLogicState: ' + this.m_iId);
+    this.m_boardParent.scheduleUpdateOutputLogicState(this.m_iId);
   }
 
   updateOutputLogicState() {
-    //ScheduleUpdateInputLogicState(this.m_iId,this.m_iOrientation);
+    console.log('updateOutputLogicState: ' + this.m_iId);
+    this.m_boardParent.scheduleUpdateInputLogicState(this.m_iId, this.m_iOrientation);
   }
 
   getLogicState(iOrientation) {
+    iOrientation = iOrientation % 12;
     return (iOrientation == this.m_iOrientation) ? this.m_outputLogicState : LogicState.ZZZ;
   }
 }

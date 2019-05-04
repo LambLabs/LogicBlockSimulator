@@ -1,8 +1,8 @@
 "use strict";
 
 class InputGate extends Gate {
-  constructor(iX, iY, iOrientation) {
-    super(iX, iY, iOrientation, 0);
+  constructor(iId, iX, iY, iOrientation) {
+    super(iId, iX, iY, iOrientation, 0);
     this.m_outputLogicState = LogicState.HIGH;
   }
 
@@ -39,7 +39,10 @@ class InputGate extends Gate {
     ctx.restore();
 
     ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState];
-    ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, iWidth - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2), iHeight - 2 * (iSecWidth+iLineWidth * Math.SQRT2 / 2));
+    //ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2
+    //            , iWidth - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2), iHeight - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2));
+    ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth /*+ iLineWidth * Math.SQRT2 / 2*/
+                , iWidth - 2 * iSecWidth - 2 * iLineWidth * Math.SQRT2 / 2, iHeight - 2 * iSecWidth - iLineWidth * Math.SQRT2 / 2);
 
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -47,5 +50,17 @@ class InputGate extends Gate {
     ctx.font = '8px serif';
     ctx.fillText('Input', 0, iHeight / 2 - (iSecWidth - iLineWidth) / 2 - iLineWidth);
     ctx.restore();
+  }
+
+  updateInputLogicState() {
+    return;
+  }
+
+  updateOutputLogicState() {
+    if(this.m_outputLogicState == LogicState.LOW || this.m_outputLogicState == LogicState.ZZZ)
+      this.m_outputLogicState = LogicState.HIGH;
+    else
+      this.m_outputLogicState = LogicState.LOG;
+    super.updateOutputLogicState();
   }
 }

@@ -11,10 +11,13 @@ main();
 function main()
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  let andgate1 = new AndGate(100,100,0);
-  let andgate2 = new AndGate(150,100,9);
-  let inputgate1 = new InputGate(50,100,3);
-  andgate1.draw(ctx);
-  andgate2.draw(ctx);
-  inputgate1.draw(ctx);
+  let board = new Board(10, 10, 50, 50, 0, 0);
+  board.insertGate(2, 2, GateType.AND, 0);
+  board.insertGate(2, 1, GateType.OUTPUT, 0);
+  board.insertGate(4, 2, GateType.OR, 9);
+  board.insertGate(1, 2, GateType.INPUT, 3);
+  board.insertGate(4, 1, GateType.INPUT, 6);
+  board.insertGate(4, 3, GateType.INPUT, 0);
+
+  board.draw(ctx);
 }

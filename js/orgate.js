@@ -1,6 +1,6 @@
 "use strict";
 
-class AndGate extends Gate {
+class OrGate extends Gate {
   constructor(iId, iX, iY, iOrientation) {
     super(iId, iX, iY, iOrientation, 2);
   }
@@ -52,12 +52,7 @@ class AndGate extends Gate {
     ctx.textBaseline = 'middle';
     ctx.fillStyle = 'white';
     ctx.font = '8px serif';
-    ctx.fillText('AND', 0, iHeight / 2 - (iSecWidth - iLineWidth) / 2 - iLineWidth);
+    ctx.fillText('OR', 0, iHeight / 2 - (iSecWidth - iLineWidth) / 2 - iLineWidth);
     ctx.restore();
-  }
-
-  updateOutputLogicState() {
-    this.m_outputLogicState = this.m_inputLogicState[0] && this.m_inputLogicState[1];
-    super.updateOutputLogicState();
   }
 }

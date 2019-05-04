@@ -18,8 +18,19 @@ function main()
   board.insertGate(4, 2, GateType.OR, 9);
   board.insertGate(1, 2, GateType.INPUT, 3);
   board.insertGate(4, 1, GateType.INPUT, 6);
-  board.insertGate(4, 3, GateType.INPUT, 0);
-  board.insertGate(3, 2, GateType.WIRE, 9);
+  board.insertGate(3, 3, GateType.INPUT, 3);
+  board.insertGate(3, 2, GateType.WIRESTRATE, 9);
+  board.insertGate(4, 3, GateType.WIRELEFT, 0);
+
+  board.insertGate(6, 6, GateType.OR, 0);
+  board.insertGate(5, 6, GateType.INPUT, 3);
+  board.insertGate(6, 5, GateType.WIRESTRATE, 0);
+  board.insertGate(6, 4, GateType.WIRERIGHT, 3);
+  board.insertGate(7, 4, GateType.WIRESTRATE, 3);
+  board.insertGate(8, 4, GateType.WIRERIGHT, 6);
+  board.insertGate(8, 5, GateType.WIRESTRATE, 6);
+  board.insertGate(8, 6, GateType.WIRERIGHT, 9);
+  board.insertGate(7, 6, GateType.WIRESTRATE, 9);
 
   canvas.addEventListener('click', click, false);
   draw();

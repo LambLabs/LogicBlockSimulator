@@ -1,12 +1,14 @@
 "use strict";
 
 var GateType = {
-  AND:    Symbol('And'),
-  OR:     Symbol('Or'),
-  NOT:    Symbol('Not'),
-  INPUT:  Symbol('Input'),
-  OUTPUT: Symbol('Output'),
-  WIRE: Symbol('Output'),
+  AND:        Symbol('And'),
+  OR:         Symbol('Or'),
+  NOT:        Symbol('Not'),
+  INPUT:      Symbol('Input'),
+  OUTPUT:     Symbol('Output'),
+  WIRESTRATE: Symbol('WireStrate'),
+  WIRELEFT:   Symbol('WireLeft'),
+  WIRERIGHT:  Symbol('WireRight'),
 };
 
 class Board
@@ -44,8 +46,14 @@ class Board
       case GateType.OUTPUT:
         gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRE:
-        gate = new Wire(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+      case GateType.WIRESTRATE:
+        gate = new WireS(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRELEFT:
+        gate = new WireL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRERIGHT:
+        gate = new WireR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       default:
         console.log('Error wrong GateType' + eGateType);

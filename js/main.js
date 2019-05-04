@@ -19,6 +19,7 @@ function main()
   board.insertGate(1, 2, GateType.INPUT, 3);
   board.insertGate(4, 1, GateType.INPUT, 6);
   board.insertGate(4, 3, GateType.INPUT, 0);
+  board.insertGate(3, 2, GateType.WIRE, 9);
 
   canvas.addEventListener('click', click, false);
   draw();

@@ -6,6 +6,7 @@ var GateType = {
   NOT:    Symbol('Not'),
   INPUT:  Symbol('Input'),
   OUTPUT: Symbol('Output'),
+  WIRE: Symbol('Output'),
 };
 
 class Board
@@ -43,6 +44,12 @@ class Board
       case GateType.OUTPUT:
         gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
+      case GateType.WIRE:
+        gate = new Wire(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      default:
+        console.log('Error wrong GateType' + eGateType);
+        return;
     }
     this.m_aLogicGates[newId] = gate;
   }

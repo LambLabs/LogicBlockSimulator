@@ -64,9 +64,17 @@ class OrGate extends Gate {
 
   updateOutputLogicState() {
     let oldOutputLogicState = this.m_outputLogicState;
-    if (this.m_inputLogicState[0] == LogicState.ZZZ && this.m_inputLogicState[1] == LogicState.ZZZ) {
+    if (this.m_inputLogicState[0] == LogicState.ZZZ
+     && this.m_inputLogicState[1] == LogicState.ZZZ) {
       this.m_outputLogicState = LogicState.ZZZ;
-    } else if (this.m_inputLogicState[0] == LogicState.LOW && this.m_inputLogicState[1] == LogicState.LOW) {
+    } else if (this.m_inputLogicState[0] == LogicState.LOW
+            && this.m_inputLogicState[1] == LogicState.LOW) {
+      this.m_outputLogicState = LogicState.LOW;
+    } else if (this.m_inputLogicState[0] == LogicState.LOW
+            && this.m_inputLogicState[1] == LogicState.ZZZ) {
+      this.m_outputLogicState = LogicState.LOW;
+    } else if (this.m_inputLogicState[0] == LogicState.ZZZ 
+            && this.m_inputLogicState[1] == LogicState.LOW) {
       this.m_outputLogicState = LogicState.LOW;
     } else {
       this.m_outputLogicState = LogicState.HIGH;

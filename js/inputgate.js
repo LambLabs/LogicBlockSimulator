@@ -2,7 +2,7 @@
 
 class InputGate extends Gate {
   constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 0);
+    super(boardParent, iId, iX, iY, iOrientation, 0, 1);
     //this.m_outputLogicState = LogicState.HIGH;
   }
 
@@ -29,16 +29,16 @@ class InputGate extends Gate {
       ctx.lineTo(-iWidth / 2 + iSecWidth, -iHeight / 2 + iHeight - iSecWidth - iLineWidth * Math.SQRT2 / 2);
       ctx.lineTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iHeight - iLineWidth - iLineWidth * Math.SQRT2 / 2);
       ctx.closePath();
-      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState];
+      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]];
       ctx.stroke();
-      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState];
+      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]];
       ctx.fill();
 
     }
 
     ctx.restore();
 
-    ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState];
+    ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]];
     //ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2
     //            , iWidth - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2), iHeight - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2));
     ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth /*+ iLineWidth * Math.SQRT2 / 2*/
@@ -57,10 +57,10 @@ class InputGate extends Gate {
   }
 
   updateOutputLogicState() {
-    if (this.m_outputLogicState == LogicState.LOW || this.m_outputLogicState == LogicState.ZZZ)
-      this.m_outputLogicState = LogicState.HIGH;
+    if (this.m_outputLogicState[0] == LogicState.LOW || this.m_outputLogicState[0] == LogicState.ZZZ)
+      this.m_outputLogicState[0] = LogicState.HIGH;
     else
-      this.m_outputLogicState = LogicState.LOW;
+      this.m_outputLogicState[0] = LogicState.LOW;
     super.updateOutputLogicState();
   }
 }

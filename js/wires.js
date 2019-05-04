@@ -2,7 +2,7 @@
 
 class WireS extends Gate {
   constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 1);
+    super(boardParent, iId, iX, iY, iOrientation, 1, 1);
     //this.m_outputLogicState = LogicState.HIGH;
   }
 
@@ -25,7 +25,7 @@ class WireS extends Gate {
 
     let grdFill = ctx.createLinearGradient(0, -iHeight / 2, 0, iHeight / 2);
     grdFill.addColorStop(1, Gate.LOGIC_STATE_COLOR[this.m_inputLogicState[0]]);
-    grdFill.addColorStop(0, Gate.LOGIC_STATE_COLOR[this.m_outputLogicState]);
+    grdFill.addColorStop(0, Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]]);
     ctx.fillStyle = grdFill;
     ctx.fillRect(-iWidth / 6 + iLineWidth, -iHeight / 2 + iLineWidth
                 , iWidth / 3 - 2 * iLineWidth , iHeight - 2 * iLineWidth);
@@ -38,9 +38,9 @@ class WireS extends Gate {
   }
 
   updateOutputLogicState() {
-    let oldOutputLogicState = this.m_outputLogicState;
-    this.m_outputLogicState = this.m_inputLogicState[0];
-    if (oldOutputLogicState != this.m_outputLogicState) {
+    let oldOutputLogicState = this.m_outputLogicState[0];
+    this.m_outputLogicState[0] = this.m_inputLogicState[0];
+    if (oldOutputLogicState != this.m_outputLogicState[0]) {
       super.updateOutputLogicState();
     }
   }//*/

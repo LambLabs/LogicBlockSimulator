@@ -1,14 +1,17 @@
 "use strict";
 
 var GateType = {
-  AND:        Symbol('And'),
-  OR:         Symbol('Or'),
-  NOT:        Symbol('Not'),
-  INPUT:      Symbol('Input'),
-  OUTPUT:     Symbol('Output'),
-  WIRESTRATE: Symbol('WireStrate'),
-  WIRELEFT:   Symbol('WireLeft'),
-  WIRERIGHT:  Symbol('WireRight'),
+  AND:             Symbol('And'),
+  OR:              Symbol('Or'),
+  NOT:             Symbol('Not'),
+  INPUT:           Symbol('Input'),
+  OUTPUT:          Symbol('Output'),
+  WIRESTRATE:      Symbol('WireStrate'),
+  WIRELEFT:        Symbol('WireLeft'),
+  WIRERIGHT:       Symbol('WireRight'),
+  WIRECROSSLEFT:   Symbol('WireCrossLeft'),
+  WIRECROSSRIGHT:  Symbol('WireCrossRight'),
+  WIRET:           Symbol('WireT'),
 };
 
 class Board
@@ -23,6 +26,7 @@ class Board
     this.m_iX = iX;
     this.m_iY = iY;
     this.m_aLogicGates = [];
+    this.m_iPropagationTime = 100;
     for (let y = 0; y < this.m_iHeightInGates; y++) {
       for (let x = 0; x < this.m_iWidthInGates; x++) {
         this.m_aLogicGates.push(null);
@@ -40,6 +44,9 @@ class Board
       case GateType.OR:
         gate = new OrGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
+      case GateType.NOT:
+        gate = new NotGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
       case GateType.INPUT:
         gate = new InputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
@@ -54,6 +61,15 @@ class Board
         break;
       case GateType.WIRERIGHT:
         gate = new WireR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRECROSSLEFT:
+        gate = new WireCL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRECROSSRIGHT:
+        gate = new WireCR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRET:
+        gate = new WireT(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       default:
         console.log('Error wrong GateType' + eGateType);
@@ -84,7 +100,7 @@ class Board
       iId = iX + iY * this.m_iWidthInGates;
       let gate = this.m_aLogicGates[iId];
       if (gate) {
-        return gate.getLogicState(iOrientation + 6);
+        return gate.getLogicState(iOrientationFinal + 6);
       }
     }
 
@@ -93,7 +109,7 @@ class Board
 
   scheduleUpdateOutputLogicState(iId) {
     let gate = this.m_aLogicGates[iId];
-    window.setTimeout(gate.updateOutputLogicState.bind(gate),1000);
+    window.setTimeout(gate.updateOutputLogicState.bind(gate),this.m_iPropagationTime);
   }
 
   scheduleUpdateInputLogicState(iId, iOrientation) {
@@ -117,7 +133,7 @@ class Board
       iId = iX + iY * this.m_iWidthInGates;
       let gate = this.m_aLogicGates[iId];
       if (gate) {
-        window.setTimeout(gate.updateInputLogicState.bind(gate),1000);
+        window.setTimeout(gate.updateInputLogicState.bind(gate),this.m_iPropagationTime);
       }
     }
   }
@@ -144,11 +160,10 @@ class Board
       for (let x = 0; x < this.m_iWidthInGates; x++, i++) {
         ctx.save();
         ctx.translate(x * this.m_iGateWidth, y * this.m_iGateHeight);
+        ctx.strokeRect(0, 0, this.m_iGateWidth, this.m_iGateHeight);
         let logicgate = this.m_aLogicGates[i];
         if (logicgate) {
           logicgate.draw(ctx);
-        } else {
-          ctx.strokeRect(0, 0, this.m_iGateWidth, this.m_iGateHeight);
         }
 
         ctx.restore();

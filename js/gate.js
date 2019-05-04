@@ -11,13 +11,19 @@ class Gate
     return ['white', 'red', 'gray'];
   }
 
-  constructor(boardParent, iId, iX, iY, iOrientation, iInputCount) {
+  constructor(boardParent, iId, iX, iY, iOrientation, iInputCount, iOutputCount) {
     this.m_boardParent = boardParent;
     this.m_iId = iId;
     this.m_iX = iX;
     this.m_iY = iY;
     this.m_iOrientation = iOrientation; //0 3 6 9
-    this.m_outputLogicState = LogicState.ZZZ;
+    this.m_iOutputCount = iOutputCount;
+    this.m_outputLogicState = [];
+    this.m_outputOrientation = [];
+    for (let i = 0; i < this.m_iOutputCount; i++) {
+      this.m_outputLogicState.push(LogicState.ZZZ);
+      this.m_outputOrientation.push(0);
+    }
     this.m_iInputCount = iInputCount;
     this.m_inputLogicState = [];
     this.m_inputOrientation = [];
@@ -38,11 +44,19 @@ class Gate
 
   updateOutputLogicState() {
     console.log('updateOutputLogicState: ' + this.m_iId);
-    this.m_boardParent.scheduleUpdateInputLogicState(this.m_iId, this.m_iOrientation);
+    for (let i = 0; i < this.m_outputLogicState.length; i++) {
+      this.m_boardParent.scheduleUpdateInputLogicState(this.m_iId, ((this.m_iOrientation + this.m_outputOrientation[i]) % 12));
+    }
   }
 
   getLogicState(iOrientation) {
     iOrientation = iOrientation % 12;
-    return (iOrientation == this.m_iOrientation) ? this.m_outputLogicState : LogicState.ZZZ;
+    for (let i = 0; i < this.m_outputLogicState.length; i++) {
+      if (iOrientation == ((this.m_iOrientation + this.m_outputOrientation[i]) % 12)) {
+        return this.m_outputLogicState[i];
+      }
+    }
+
+    return LogicState.ZZZ;
   }
 }

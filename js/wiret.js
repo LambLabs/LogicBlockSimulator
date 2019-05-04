@@ -1,9 +1,11 @@
 "use strict";
 
-class WireL extends Gate {
+class WireT extends Gate {
   constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 1, 1);
+    super(boardParent, iId, iX, iY, iOrientation, 1, 2);
     //this.m_outputLogicState = LogicState.HIGH;
+    this.m_outputOrientation[0] = 3;
+    this.m_outputOrientation[1] = 9;
   }
 
   draw(ctx) {
@@ -21,30 +23,43 @@ class WireL extends Gate {
     //ctx.save();
     ctx.fillStyle = 'black';
     ctx.beginPath();
-    ctx.moveTo(-iWidth / 6, -iHeight / 2);
-    ctx.lineTo(+iWidth / 6, -iHeight / 2);
+    ctx.moveTo(-iWidth / 6, +iHeight / 2);
+    ctx.lineTo(+iWidth / 6, +iHeight / 2);
     ctx.lineTo(+iWidth / 6, +iHeight / 6);
-    ctx.lineTo(-iWidth / 6, -iHeight / 6);
+    ctx.lineTo(          0,            0);
+    ctx.lineTo(-iWidth / 6, +iHeight / 6);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(+iWidth / 2, +iHeight / 6);
+    ctx.lineTo(+iWidth / 2, -iHeight / 6);
+    ctx.lineTo(          0, -iHeight / 6);
+    ctx.lineTo(          0,            0);
+    ctx.lineTo(-iWidth / 6, +iHeight / 6);
     ctx.closePath();
     ctx.fill();
 
     ctx.beginPath();
     ctx.moveTo(-iWidth / 2, +iHeight / 6);
     ctx.lineTo(-iWidth / 2, -iHeight / 6);
-    ctx.lineTo(-iWidth / 6, -iHeight / 6);
+    ctx.lineTo(          0, -iHeight / 6);
+    ctx.lineTo(          0,            0);
     ctx.lineTo(+iWidth / 6, +iHeight / 6);
     ctx.closePath();
     ctx.fill();
+
 
     let grdFill = ctx.createLinearGradient(0, -iHeight / 2, 0, iHeight / 2);
     grdFill.addColorStop(1, Gate.LOGIC_STATE_COLOR[this.m_inputLogicState[0]]);
     grdFill.addColorStop(0, Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]]);
     ctx.fillStyle = grdFill;
     ctx.beginPath();
-    ctx.moveTo(-iWidth / 6 + iLineWidth, -iHeight / 2 + iLineWidth);
-    ctx.lineTo(+iWidth / 6 - iLineWidth, -iHeight / 2 + iLineWidth);
+    ctx.moveTo(-iWidth / 6 + iLineWidth, +iHeight / 2 - iLineWidth);
+    ctx.lineTo(+iWidth / 6 - iLineWidth, +iHeight / 2 - iLineWidth);
     ctx.lineTo(+iWidth / 6 - iLineWidth, +iHeight / 6 - iLineWidth);
-    ctx.lineTo(-iWidth / 6 + iLineWidth, -iHeight / 6 + iLineWidth);
+    ctx.lineTo(                       0,                         0);
+    ctx.lineTo(-iWidth / 6 + iLineWidth, +iHeight / 6 - iLineWidth);
     ctx.closePath();
     ctx.fill();
 
@@ -53,25 +68,41 @@ class WireL extends Gate {
     grdFill.addColorStop(0, Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]]);
     ctx.fillStyle = grdFill;
     ctx.beginPath();
+    ctx.moveTo(+iWidth / 2 - iLineWidth, +iHeight / 6 - iLineWidth);
+    ctx.lineTo(+iWidth / 2 - iLineWidth, -iHeight / 6 + iLineWidth);
+    ctx.lineTo(                       0, -iHeight / 6 + iLineWidth);
+    ctx.lineTo(                       0,                         0);
+    ctx.lineTo(-iWidth / 6 + iLineWidth, +iHeight / 6 - iLineWidth);
+    ctx.closePath();
+    ctx.fill();
+
+    grdFill = ctx.createLinearGradient(-iWidth / 2, 0, +iWidth / 2, 0);
+    grdFill.addColorStop(1, Gate.LOGIC_STATE_COLOR[this.m_inputLogicState[0]]);
+    grdFill.addColorStop(0, Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[1]]);
+    ctx.fillStyle = grdFill;
+    ctx.beginPath();
     ctx.moveTo(-iWidth / 2 + iLineWidth, +iHeight / 6 - iLineWidth);
     ctx.lineTo(-iWidth / 2 + iLineWidth, -iHeight / 6 + iLineWidth);
-    ctx.lineTo(-iWidth / 6 + iLineWidth, -iHeight / 6 + iLineWidth);
+    ctx.lineTo(                       0, -iHeight / 6 + iLineWidth);
+    ctx.lineTo(                       0,                         0);
     ctx.lineTo(+iWidth / 6 - iLineWidth, +iHeight / 6 - iLineWidth);
     ctx.closePath();
     ctx.fill();
     //ctx.fillRect(-iWidth / 6 + iLineWidth, -iHeight / 2 + iLineWidth
     //            , iWidth / 3 - 2 * iLineWidth , iHeight - 2 * iLineWidth);
+    //*/
     ctx.restore();
   }
 
   updateInputLogicState() {
-    this.m_inputLogicState[0] = this.m_boardParent.getNeighbourLogicState(this.m_iId, this.m_iOrientation + 9);
+    this.m_inputLogicState[0] = this.m_boardParent.getNeighbourLogicState(this.m_iId, this.m_iOrientation + 6);
     super.updateInputLogicState();
   }
 
   updateOutputLogicState() {
     let oldOutputLogicState = this.m_outputLogicState[0];
     this.m_outputLogicState[0] = this.m_inputLogicState[0];
+    this.m_outputLogicState[1] = this.m_inputLogicState[0];
     if (oldOutputLogicState != this.m_outputLogicState[0]) {
       super.updateOutputLogicState();
     }

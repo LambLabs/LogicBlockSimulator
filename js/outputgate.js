@@ -2,8 +2,7 @@
 
 class OutputGate extends Gate {
   constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 1);
-    this.m_outputLogicState = LogicState.ZZZ;
+    super(boardParent, iId, iX, iY, iOrientation, 1, 1); //Maybe 1, 0
   }
 
   draw(ctx) {
@@ -38,7 +37,7 @@ class OutputGate extends Gate {
 
     ctx.restore();
 
-    ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState];
+    ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]];
     ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2
                 , iWidth - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2), iHeight - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2));
     //ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth /*+ iLineWidth * Math.SQRT2 / 2*/
@@ -58,6 +57,6 @@ class OutputGate extends Gate {
   }
 
   updateOutputLogicState() {
-    this.m_outputLogicState = this.m_inputLogicState[0];
+    this.m_outputLogicState[0] = this.m_inputLogicState[0];
   }
 }

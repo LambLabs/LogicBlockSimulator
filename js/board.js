@@ -6,12 +6,14 @@ var GateType = {
   NOT:             Symbol('Not'),
   INPUT:           Symbol('Input'),
   OUTPUT:          Symbol('Output'),
-  WIRESTRATE:      Symbol('WireStrate'),
-  WIRELEFT:        Symbol('WireLeft'),
-  WIRERIGHT:       Symbol('WireRight'),
-  WIRECROSSLEFT:   Symbol('WireCrossLeft'),
-  WIRECROSSRIGHT:  Symbol('WireCrossRight'),
+  WIRES:           Symbol('WireStrate'),
+  WIREL:           Symbol('WireLeft'),
+  WIRER:           Symbol('WireRight'),
+  WIRECL:          Symbol('WireCrossLeft'),
+  WIRECR:          Symbol('WireCrossRight'),
   WIRET:           Symbol('WireT'),
+  WIRETR:          Symbol('WireTR'),
+  WIRETL:          Symbol('WireTL'),
 };
 
 class Board
@@ -26,7 +28,7 @@ class Board
     this.m_iX = iX;
     this.m_iY = iY;
     this.m_aLogicGates = [];
-    this.m_iPropagationTime = 100;
+    this.m_iPropagationTime = 1000;
     for (let y = 0; y < this.m_iHeightInGates; y++) {
       for (let x = 0; x < this.m_iWidthInGates; x++) {
         this.m_aLogicGates.push(null);
@@ -53,23 +55,29 @@ class Board
       case GateType.OUTPUT:
         gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRESTRATE:
+      case GateType.WIRES:
         gate = new WireS(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRELEFT:
+      case GateType.WIREL:
         gate = new WireL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRERIGHT:
+      case GateType.WIRER:
         gate = new WireR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRECROSSLEFT:
+      case GateType.WIRECL:
         gate = new WireCL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
-      case GateType.WIRECROSSRIGHT:
+      case GateType.WIRECR:
         gate = new WireCR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       case GateType.WIRET:
         gate = new WireT(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRETR:
+        gate = new WireTR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        break;
+      case GateType.WIRETL:
+        gate = new WireTL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
         break;
       default:
         console.log('Error wrong GateType' + eGateType);

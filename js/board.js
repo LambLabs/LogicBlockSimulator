@@ -41,43 +41,43 @@ class Board
     let gate = null;
     switch (eGateType) {
       case GateType.AND:
-        gate = new AndGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new AndGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.OR:
-        gate = new OrGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new OrGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.NOT:
-        gate = new NotGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new NotGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.INPUT:
-        gate = new InputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new InputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.OUTPUT:
-        gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new OutputGate(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRES:
-        gate = new WireS(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireS(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIREL:
-        gate = new WireL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRER:
-        gate = new WireR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRECL:
-        gate = new WireCL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireCL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRECR:
-        gate = new WireCR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireCR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRET:
-        gate = new WireT(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireT(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRETR:
-        gate = new WireTR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireTR(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       case GateType.WIRETL:
-        gate = new WireTL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, iOrientation);
+        gate = new WireTL(this, newId, this.m_iGateWidth / 2, this.m_iGateHeight / 2, this.m_iGateWidth, this.m_iGateHeight, iOrientation);
         break;
       default:
         console.log('Error wrong GateType' + eGateType);

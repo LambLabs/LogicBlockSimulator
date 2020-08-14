@@ -12,6 +12,9 @@ main();
 function main()
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.width = 20 * 36;
+  canvas.height = 15 * 36;
+
   board = new Board(20, 15, 36, 36, 0, 0);
   board.insertGate(2, 2, GateType.AND, 0);
   board.insertGate(2, 1, GateType.OUTPUT, 0);
@@ -46,7 +49,8 @@ function main()
   board.insertGate(7, 3, GateType.INPUT, 3);
   board.insertGate(9, 2, GateType.WIRER, 3);
   board.insertGate(10, 2, GateType.NOT, 3);
-  board.insertGate(11, 2, GateType.WIRECL, 6);
+  //board.insertGate(11, 2, GateType.WIRECL, 6);
+  board.insertGate(11, 2, GateType.WIRECR, 3);
   //board.insertGate(11, 2, GateType.WIRECROSSRIGHT, 3);
   board.insertGate(12, 2, GateType.WIREL, 0);
 
@@ -66,6 +70,31 @@ function main()
   board.insertGate(11, 9, GateType.WIRER, 0);
   board.insertGate(12, 9, GateType.WIREL, 9);
   board.insertGate(12, 10, GateType.INPUT, 0);
+
+
+  board.insertGate(1, 9, GateType.INPUT, 3);
+  board.insertGate(2, 9, GateType.WIRETR, 3);
+  board.insertGate(3, 9, GateType.WIRER, 6);
+
+  board.insertGate(2, 10, GateType.WIRES, 6);
+  board.insertGate(3, 10, GateType.AND, 3);
+  board.insertGate(4, 10, GateType.NOT, 3);
+  board.insertGate(5, 10, GateType.WIRER, 6);
+
+  board.insertGate(1, 11, GateType.INPUT, 3);
+  board.insertGate(2, 11, GateType.WIRECL, 6);
+  board.insertGate(3, 11, GateType.WIRET, 3)
+  board.insertGate(5, 11, GateType.AND, 3);
+  board.insertGate(6, 11, GateType.WIRES, 3);
+  board.insertGate(7, 11, GateType.OUTPUT, 3);
+
+  board.insertGate(2, 12, GateType.WIRES, 6);
+  board.insertGate(3, 12, GateType.OR, 3);
+  board.insertGate(4, 12, GateType.WIRES, 3);
+  board.insertGate(5, 12, GateType.WIREL, 0);
+
+  board.insertGate(2, 13, GateType.WIREL, 3);
+  board.insertGate(3, 13, GateType.WIREL, 0);
 
   canvas.addEventListener('click', click, false);
   draw();

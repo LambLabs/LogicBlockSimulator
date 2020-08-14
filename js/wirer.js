@@ -1,16 +1,16 @@
 "use strict";
 
 class WireR extends Gate {
-  constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 1, 1);
+  constructor(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation) {
+    super(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation, 1, 1);
     //this.m_outputLogicState = LogicState.HIGH;
   }
 
   draw(ctx) {
     let iX = this.m_iX;
     let iY = this.m_iY;
-    let iWidth = 36 * 2 / 2;
-    let iHeight = 36 * 2 / 2;
+    let iWidth = this.m_iWidth;
+    let iHeight = this.m_iHeight;
     let iLineWidth = 1;
     let iSecWidth = 30 / 2;
 

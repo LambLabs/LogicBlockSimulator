@@ -1,8 +1,8 @@
 "use strict";
 
 class WireT extends Gate {
-  constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 1, 2);
+  constructor(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation) {
+    super(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation, 1, 2);
     //this.m_outputLogicState = LogicState.HIGH;
     this.m_outputOrientation[0] = 3;
     this.m_outputOrientation[1] = 9;
@@ -11,8 +11,8 @@ class WireT extends Gate {
   draw(ctx) {
     let iX = this.m_iX;
     let iY = this.m_iY;
-    let iWidth = 36 * 2 / 2;
-    let iHeight = 36 * 2 / 2;
+    let iWidth = this.m_iWidth;
+    let iHeight = this.m_iHeight;
     let iLineWidth = 0;
     let iSecWidth = 30 / 2;
 

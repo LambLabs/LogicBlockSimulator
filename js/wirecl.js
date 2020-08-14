@@ -1,17 +1,17 @@
 "use strict";
 
 class WireCL extends Gate {
-  constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 2, 2);
+  constructor(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation) {
+    super(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation, 2, 2);
     this.m_outputOrientation[1] = 9;
   }
 
   draw(ctx) {
     let iX = this.m_iX;
     let iY = this.m_iY;
-    let iWidth = 36 * 2 / 2;
-    let iHeight = 36 * 2 / 2;
-    let iLineWidth = 1;
+    let iWidth = this.m_iWidth;
+    let iHeight = this.m_iHeight;
+    let iLineWidth = 0;
     let iSecWidth = 30 / 2;
 
     ctx.save();
@@ -32,6 +32,17 @@ class WireCL extends Gate {
       ctx.fillStyle = grdFill;
       ctx.fillRect(-iWidth / 6 + iLineWidth, -iHeight / 2 + iLineWidth
                   , iWidth / 3 - 2 * iLineWidth , iHeight - 2 * iLineWidth);
+      //*
+      ctx.beginPath();
+      ctx.moveTo(-iWidth / 6-1, - iHeight / 2);
+      ctx.lineTo(-iWidth / 6-1, + iHeight / 2);
+      ctx.moveTo(+iWidth / 6+1, - iHeight / 2);
+      ctx.lineTo(+iWidth / 6+1, + iHeight / 2);
+      ctx.closePath();
+      
+      ctx.strokeStyle = 'white';
+      ctx.stroke();
+      //*/
       ctx.rotate((Math.PI / 180) * 90);
     }
 

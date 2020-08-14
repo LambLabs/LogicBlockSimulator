@@ -12,11 +12,13 @@ class Gate
     return ['red', '#92D050', '#D9D9D9'];
   }
 
-  constructor(boardParent, iId, iX, iY, iOrientation, iInputCount, iOutputCount) {
+  constructor(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation, iInputCount, iOutputCount) {
     this.m_boardParent = boardParent;
     this.m_iId = iId;
     this.m_iX = iX;
     this.m_iY = iY;
+    this.m_iWidth = iWidth;
+    this.m_iHeight = iHeight;
     this.m_iOrientation = iOrientation; //0 3 6 9
     this.m_iOutputCount = iOutputCount;
     this.m_outputLogicState = [];

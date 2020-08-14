@@ -1,15 +1,15 @@
 "use strict";
 
 class OrGate extends Gate {
-  constructor(boardParent, iId, iX, iY, iOrientation) {
-    super(boardParent, iId, iX, iY, iOrientation, 2, 1);
+  constructor(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation) {
+    super(boardParent, iId, iX, iY, iWidth, iHeight, iOrientation, 2, 1);
   }
 
   draw(ctx) {
     let iX = this.m_iX;
     let iY = this.m_iY;
-    let iWidth = 36 * 2 / 2;
-    let iHeight = 36 * 2 / 2;
+    let iWidth = this.m_iWidth;
+    let iHeight = this.m_iHeight;
     let iLineWidth = 10 / 2;
     let iSecWidth = 30 / 2;
 
@@ -19,32 +19,29 @@ class OrGate extends Gate {
     ctx.fillStyle = '#595959';
     ctx.fillRect(-iWidth / 2, -iHeight / 2, iWidth, iHeight);
 
-    /*
+    //*
     ctx.save();
-    for (let i = 0; i < 3; i++)
+    for (let i = 0; i < 2; i++)
     {
       ctx.beginPath();
-      if (i == 3) {
-        ctx.moveTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iSecWidth, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iSecWidth, -iHeight / 2 + iHeight - iSecWidth - iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iHeight - iSecWidth - iLineWidth * Math.SQRT2 / 2);
-      } else {
-        ctx.moveTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iLineWidth + iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iSecWidth, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iSecWidth, -iHeight / 2 + iHeight - iSecWidth - iLineWidth * Math.SQRT2 / 2);
-        ctx.lineTo(-iWidth / 2 + iLineWidth, -iHeight / 2 + iHeight - iLineWidth - iLineWidth * Math.SQRT2 / 2);
-      }
+      ctx.moveTo(-iWidth / 2, - iHeight / 12);
+      ctx.lineTo(-iWidth / 2 + iWidth / 6 , 0);
+      ctx.lineTo(-iWidth / 2, + iHeight / 12);
+      ctx.lineTo(-iWidth / 2, - iHeight / 12);
       ctx.closePath();
-      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[(i == 0) ? this.m_inputLogicState[0] : (i == 2) ? this.m_inputLogicState[1] : this.m_outputLogicState[0]];
+      
+      ctx.strokeStyle = Gate.LOGIC_STATE_COLOR[this.m_inputLogicState[i]];
       ctx.stroke();
-      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[(i == 0) ? this.m_inputLogicState[0] : (i == 2) ? this.m_inputLogicState[1] : this.m_outputLogicState[0]];
+      ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_inputLogicState[i]];
       ctx.fill();
-      ctx.rotate((Math.PI / 180) * 90);
+      ctx.rotate((Math.PI / 180) * 180);
     }
-
     ctx.restore();
     //*/
+    
+    ctx.strokeStyle = '#595959';
+    ctx.strokeRect(-iWidth / 2 + 0.5, - iHeight / 2 +0.5, iWidth-1, iHeight-1);
+
     ctx.fillStyle = Gate.LOGIC_STATE_COLOR[this.m_outputLogicState[0]];
     //ctx.fillRect(-iWidth / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, -iHeight / 2 + iSecWidth + iLineWidth * Math.SQRT2 / 2, iWidth - 2 * (iSecWidth + iLineWidth * Math.SQRT2 / 2), iHeight - 2 * (iSecWidth+iLineWidth * Math.SQRT2 / 2));
     ctx.fillRect(-iWidth / 2 + iWidth / 3, -iHeight / 2

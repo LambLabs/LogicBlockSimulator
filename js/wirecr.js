@@ -9,9 +9,9 @@ class WireCR extends Gate {
   draw(ctx) {
     let iX = this.m_iX;
     let iY = this.m_iY;
-    let iWidth = 100 / 2;
-    let iHeight = 100 / 2;
-    let iLineWidth = 5 / 2;
+    let iWidth = 36 * 2 / 2;
+    let iHeight = 36 * 2 / 2;
+    let iLineWidth = 1;
     let iSecWidth = 30 / 2;
 
     ctx.save();

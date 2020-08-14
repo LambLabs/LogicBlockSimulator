@@ -12,7 +12,7 @@ main();
 function main()
 {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  board = new Board(20, 15, 50, 50, 0, 0);
+  board = new Board(20, 15, 36, 36, 0, 0);
   board.insertGate(2, 2, GateType.AND, 0);
   board.insertGate(2, 1, GateType.OUTPUT, 0);
   board.insertGate(4, 2, GateType.OR, 9);

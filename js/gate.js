@@ -8,7 +8,8 @@ var LogicState = {
 class Gate
 {
   static get LOGIC_STATE_COLOR() {
-    return ['white', 'red', 'gray'];
+    //return ['white', 'red', 'gray'];
+    return ['red', '#92D050', '#D9D9D9'];
   }
 
   constructor(boardParent, iId, iX, iY, iOrientation, iInputCount, iOutputCount) {

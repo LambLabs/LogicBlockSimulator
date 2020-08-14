@@ -163,12 +163,19 @@ class Board
   draw(ctx) {
     ctx.save();
     ctx.translate(this.m_iX, this.m_iY);
-    ctx.strokeStyle = '#606060';
+    //ctx.strokeStyle = '#606060';
+    ctx.strokeStyle = '#EBEBEB';
+    ctx.lineWidth = 1;
     for (let y = 0, i = 0; y < this.m_iHeightInGates; y++) {
       for (let x = 0; x < this.m_iWidthInGates; x++, i++) {
         ctx.save();
         ctx.translate(x * this.m_iGateWidth, y * this.m_iGateHeight);
-        ctx.strokeRect(0, 0, this.m_iGateWidth, this.m_iGateHeight);
+        // Small grid (3x3)
+        for(let i = 0; i < 3; i++)
+          for(let j = 0; j < 3; j++)
+            ctx.strokeRect(i*this.m_iGateWidth/3+0.5, j*this.m_iGateHeight/3+0.5, this.m_iGateWidth/3, this.m_iGateHeight/3);
+        //ctx.strokeRect(0, 0, this.m_iGateWidth, this.m_iGateHeight);
+        
         let logicgate = this.m_aLogicGates[i];
         if (logicgate) {
           logicgate.draw(ctx);

@@ -11,7 +11,7 @@ class AndGate extends Gate {
     let iWidth = 100 / 2;
     let iHeight = 100 / 2;
     let iLineWidth = 10 / 2;
-    let iSecWidth = 30 / 2;
+    let iSecWidth = 30 / 2; //20/2 //25/2 //Use global
 
     ctx.save();
     ctx.translate(iX, iY);

@@ -82,5 +82,5 @@ function draw()
   board.draw(ctx);
 
   //console.log('draw');
-  window.setTimeout(draw, 100);
+  window.setTimeout(draw, 10);
 }

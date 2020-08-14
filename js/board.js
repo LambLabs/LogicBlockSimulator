@@ -28,7 +28,7 @@ class Board
     this.m_iX = iX;
     this.m_iY = iY;
     this.m_aLogicGates = [];
-    this.m_iPropagationTime = 1000;
+    this.m_iPropagationTime = 10;
     for (let y = 0; y < this.m_iHeightInGates; y++) {
       for (let x = 0; x < this.m_iWidthInGates; x++) {
         this.m_aLogicGates.push(null);
